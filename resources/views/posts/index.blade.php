@@ -5,30 +5,23 @@
   <div class="row justify-content-center">
     <div class="col-md-8">
 
+      @foreach($posts as $key => $data)
+      <div class="card">
+        <div class="card-header"><a href="{{route('posts.show',$data->id)}}">{{$data->title}}</a><div style='float:right'>{{$data->user->name}}</div></div>
+        <div class="card-body">
+          <!--<img width="600" src="{{$data->image}}" alt="{{$data->title}}">-->
+          {{$data->body}}
 
-      <!--<div class="card-header">Post Title</div>
+          <br><br>
+          Created at: {{$data->created_at->diffForHumans()}}
+          Updated at: {{$data->updated_at->diffForHumans()}}
 
-      <div class="card-body">
-      Post Content
-    </div>
-  -->
-
-  @foreach($posts as $key => $data)
-  <div class="card">
-    <div class="card-header">{{$data->title}} <div style='float:right'>{{$data->user->name}}</div></div>
-    <div class="card-body">
-      {{$data->body}}
-
+        </div>
+      </div>
       <br><br>
-      Created at: {{$data->created_at}}
-      Updated at: {{$data->updated_at}}
+      @endforeach
 
     </div>
   </div>
-  <br><br>
-  @endforeach
-
-</div>
-</div>
 </div>
 @endsection

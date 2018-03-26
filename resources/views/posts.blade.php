@@ -8,6 +8,7 @@
       <div class="card">
         <div class="card-header">{{$data->title}} <div style='float:right'>{{$data->user->name}}</div></div>
         <div class="card-body">
+          <img width="200" src="{{$data->image}}" alt="">
           {{$data->body}}
 
           <br><br>

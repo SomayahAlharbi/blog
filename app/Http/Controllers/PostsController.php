@@ -47,8 +47,20 @@ class PostsController extends Controller
   */
   public function store(Request $request)
   {
-    //Post::create($request->except('_token'));
-    $post = Auth::user()->posts()->save(new Post($request->except('_token')));
+    //Post::create($request->except('_token'););
+
+    $input = $request->except('_token');
+    if ($file = $request->file('image'))
+    {
+      $name = $file->getClientOriginalName();
+      $file->move('images',$name);
+      $input['image'] = $name;
+
+    }
+
+    $input['user_id']=Auth::user()->id;
+    Post::create($input);
+    //$post = Auth::user()->posts()->save(new Post($request->except('_token')));
     return redirect('/posts');
     //return $request->all();
   }
@@ -61,7 +73,8 @@ class PostsController extends Controller
   */
   public function show($id)
   {
-    //
+    $data = Post::findOrFail($id);
+    return view('posts.show',compact('data'));
   }
 
   /**

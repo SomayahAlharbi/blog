@@ -9,7 +9,7 @@
 
         <div class="card-body">
 
-          <form method="post" action="{{ route('posts.store') }}">
+          <form method="post" action="{{ route('posts.store') }}" enctype="multipart/form-data">
             {{ csrf_field() }}
             <div class="form-group row">
               <label class="col-md-4 col-form-label text-md-right">Post Title</label>
@@ -18,6 +18,10 @@
             <div class="form-group row">
               <label class="col-md-4 col-form-label text-md-right">Post Content</label>
               <textarea rows="5" cols="50" name="body"></textarea>
+            </div>
+            <div class="form-group row">
+              <label class="col-md-4 col-form-label text-md-right">Post image</label>
+              <input type="file" name="image">
             </div>
             <div class="form-group row mb-0">
               <div class="col-md-8 offset-md-4">
