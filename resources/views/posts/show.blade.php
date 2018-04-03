@@ -20,10 +20,10 @@
           <br><br>
           <h1>Leave Comment</h1>
           {!! Form::open(['method'=>'POST','action'=>'PostCommentsController@store']) !!}
-          <input type="hidden" name="post_id" value="{{$data->id}}">
-          <textarea rows="2" cols="80" name="comment_body"></textarea>
           <div class="form-group row mb-0">
             <div class="col-md-8">
+          <input type="hidden" name="post_id" value="{{$data->id}}">
+          <textarea rows="2" cols="80" name="comment_body"></textarea>
               <button type="submit" class="btn btn-primary">Submit</button>
             </div>
           </div>
