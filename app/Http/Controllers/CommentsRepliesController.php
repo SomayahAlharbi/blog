@@ -3,11 +3,10 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Post;
-use App\Comment;
+use App\commentReply;
 use Illuminate\Support\Facades\Auth;
 
-class PostsController extends Controller
+class CommentsRepliesController extends Controller
 {
   /**
   * Create a new controller instance.
@@ -26,8 +25,8 @@ class PostsController extends Controller
   */
   public function index()
   {
-    $posts = Post::with('user')->paginate();
-    return view('posts.index',compact('posts'));
+    //$posts = Post::with('user')->paginate();
+    //return view('posts.index',compact('posts'));
   }
 
   /**
@@ -37,7 +36,7 @@ class PostsController extends Controller
   */
   public function create()
   {
-    return view('posts.create');
+    //return view('posts.create');
   }
 
   /**
@@ -48,21 +47,18 @@ class PostsController extends Controller
   */
   public function store(Request $request)
   {
-    //Post::create($request->except('_token'););
+    $user = Auth::user();
 
-    $input = $request->except('_token');
-    if ($file = $request->file('image'))
-    {
-      $name = $file->getClientOriginalName();
-      $file->move('images',$name);
-      $input['image'] = $name;
+    $data = [
+      'comment_id'=>$request->comment_id,
+      'author'=>$user->name,
+      'email'=>$user->email,
+      'body'=>$request->comment_body
+    ];
 
-    }
+    commentReply::create($data);
+    return redirect()->back();
 
-    $input['user_id']=Auth::user()->id;
-    Post::create($input);
-    //$post = Auth::user()->posts()->save(new Post($request->except('_token')));
-    return redirect('/posts');
     //return $request->all();
   }
 
@@ -74,9 +70,10 @@ class PostsController extends Controller
   */
   public function show($id)
   {
+    /*
     $data = Post::findOrFail($id);
-    $comments = $data->comments;
-    return view('posts.show',compact('data','comments'));
+    return view('posts.show',compact('data'));
+    */
   }
 
   /**

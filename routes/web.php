@@ -39,4 +39,9 @@ Route::get('/show',function () {
 Route::get('/logout', '\App\Http\Controllers\Auth\LoginController@logout')->name('logout');
 
 Route::resource('/posts', 'PostsController');
+
+Route::resource('/comments', 'PostCommentsController');
+
+Route::resource('comments/replies', 'CommentsRepliesController');
+
 Auth::routes();

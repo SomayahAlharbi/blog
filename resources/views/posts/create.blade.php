@@ -9,8 +9,11 @@
 
         <div class="card-body">
 
-          <form method="post" action="{{ route('posts.store') }}" enctype="multipart/form-data">
-            {{ csrf_field() }}
+          <!--<form method="post" action="{{ route('posts.store') }}" enctype="multipart/form-data">
+            {{ csrf_field() }}-->
+
+            {!! Form::open(['method'=>'POST','action'=>'PostsController@store']) !!}
+
             <div class="form-group row">
               <label class="col-md-4 col-form-label text-md-right">Post Title</label>
               <input type="text" name="title">
@@ -28,7 +31,8 @@
                 <button type="submit" class="btn btn-primary">Submit</button>
               </div>
             </div>
-          </form>
+            {!! Form::close() !!}
+          <!--</form>-->
         </div>
       </div>
     </div>

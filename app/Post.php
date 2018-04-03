@@ -19,4 +19,8 @@ class Post extends Model
   {
     return $this->directory.$value;
   }
+
+  public function comments(){
+    return $this->hasMany('App\Comment');
+  }
 }
