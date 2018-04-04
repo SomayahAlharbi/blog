@@ -12,7 +12,7 @@
           <!--<form method="post" action="{{ route('posts.store') }}" enctype="multipart/form-data">
             {{ csrf_field() }}-->
 
-            {!! Form::open(['method'=>'POST','action'=>'PostsController@store']) !!}
+            {!! Form::open(['method'=>'POST','action'=>'PostsController@store', 'files' => true]) !!}
 
             <div class="form-group row">
               <label class="col-md-4 col-form-label text-md-right">Post Title</label>

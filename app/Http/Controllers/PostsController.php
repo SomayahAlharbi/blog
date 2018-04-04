@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Post;
 use App\Comment;
+
 use Illuminate\Support\Facades\Auth;
 
 class PostsController extends Controller
@@ -54,7 +55,7 @@ class PostsController extends Controller
     if ($file = $request->file('image'))
     {
       $name = $file->getClientOriginalName();
-      $file->move('images',$name);
+      $file->move(public_path('images'),$name);
       $input['image'] = $name;
 
     }
