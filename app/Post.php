@@ -17,7 +17,10 @@ class Post extends Model
 
   public function getImageAttribute($value)
   {
+    if ($value !=NULL)
     return $this->directory.$value;
+    else
+    return false;
   }
 
   public function comments(){
