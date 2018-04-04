@@ -51,6 +51,12 @@ class PostsController extends Controller
   {
     //Post::create($request->except('_token'););
 
+    $this->validate($request, [
+      'title'=>'required|max:50',
+      'body'=>'required|max:65535',
+
+    ]);
+
     $input = $request->except('_token');
     if ($file = $request->file('image'))
     {

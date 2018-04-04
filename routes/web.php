@@ -45,3 +45,11 @@ Route::resource('/comments', 'PostCommentsController');
 Route::resource('comments/replies', 'CommentsRepliesController');
 
 Auth::routes();
+
+Route::group(['middleware'=>'web'], function(){
+
+  Route::resource('/posts', 'PostsController');
+  Route::resource('/comments', 'PostCommentsController');
+  Route::resource('comments/replies', 'CommentsRepliesController');
+
+});

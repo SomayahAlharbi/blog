@@ -9,30 +9,62 @@
 
         <div class="card-body">
 
-          <!--<form method="post" action="{{ route('posts.store') }}" enctype="multipart/form-data">
-            {{ csrf_field() }}-->
-
-            {!! Form::open(['method'=>'POST','action'=>'PostsController@store', 'files' => true]) !!}
-
+          <form method="post" action="{{ route('posts.store') }}" enctype="multipart/form-data">
+            {{ csrf_field() }}
+            <!--{!! Form::open(['method'=>'POST','action'=>'PostsController@store', 'files' => true]) !!}-->
             <div class="form-group row">
-              <label class="col-md-4 col-form-label text-md-right">Post Title</label>
-              <input type="text" name="title">
+            <label class="col-md-4 col-form-label text-md-right">Post Title</label>
+            <div class="col-md-6">
+              <input type="text" name="title" id="title" class="form-control{{ $errors->has('title') ? ' is-invalid' : '' }}">
+
+              @if ($errors->has('title'))
+              <span class="invalid-feedback">
+                <strong>{{ $errors->first('title') }}</strong>
+              </span>
+              @endif
+
             </div>
+          </div>
             <div class="form-group row">
               <label class="col-md-4 col-form-label text-md-right">Post Content</label>
-              <textarea rows="5" cols="50" name="body"></textarea>
+              <div class="col-md-6">
+              <textarea rows="5" cols="50" name="body" id="body" class="form-control{{ $errors->has('body') ? ' is-invalid' : '' }}"></textarea>
+
+              @if ($errors->has('body'))
+              <span class="invalid-feedback">
+                <strong>{{ $errors->first('body') }}</strong>
+              </span>
+              @endif
+
             </div>
+          </div>
             <div class="form-group row">
               <label class="col-md-4 col-form-label text-md-right">Post image</label>
+              <div class="col-md-6">
               <input type="file" name="image">
+            </div>
             </div>
             <div class="form-group row mb-0">
               <div class="col-md-8 offset-md-4">
                 <button type="submit" class="btn btn-primary">Submit</button>
               </div>
             </div>
-            {!! Form::close() !!}
-          <!--</form>-->
+            <!--{!! Form::close() !!}-->
+          </form>
+
+          <!-- Errors Disply
+          @if (isset($errors) && count($errors) > 0)
+        <div class="alert alert-danger">
+            <ul>
+              @foreach ($errors->all() as $error)
+              <li>{{$error}}</li>
+              @endforeach
+            </ul>
+          </div>
+
+          @endif
+        -->
+
         </div>
       </div>
     </div>

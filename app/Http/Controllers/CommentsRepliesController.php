@@ -47,13 +47,19 @@ class CommentsRepliesController extends Controller
   */
   public function store(Request $request)
   {
+
+    $this->validate($request, [
+      'reply'=>'required|max:65535',
+
+    ]);
+
     $user = Auth::user();
 
     $data = [
       'comment_id'=>$request->comment_id,
       'author'=>$user->name,
       'email'=>$user->email,
-      'body'=>$request->comment_body
+      'body'=>$request->reply
     ];
 
     commentReply::create($data);

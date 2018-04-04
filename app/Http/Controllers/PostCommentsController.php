@@ -48,13 +48,18 @@ class PostCommentsController extends Controller
   public function store(Request $request)
   {
 
+    $this->validate($request, [
+      'comment'=>'required|max:65535',
+
+    ]);
+
     $user = Auth::user();
 
     $data = [
       'post_id'=>$request->post_id,
       'author'=>$user->name,
       'email'=>$user->email,
-      'body'=>$request->comment_body
+      'body'=>$request->comment
     ];
 
     Comment::create($data);

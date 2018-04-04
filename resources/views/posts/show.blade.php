@@ -8,8 +8,12 @@
       <div class="card">
         <div class="card-header">{{$data->title}} <div style='float:right'>{{$data->user->name}}</div></div>
         <div class="card-body">
+          @if (File::exists($data->image))
           <img width="600" src="{{ asset($data->image) }}" alt="{{$data->title}}">
           <br><br>
+          @else
+          <br><br>
+          @endif
 
           {{$data->body}}
 
@@ -19,15 +23,26 @@
 
           <br><br>
           <h1>Leave Comment</h1>
-          {!! Form::open(['method'=>'POST','action'=>'PostCommentsController@store']) !!}
+          <form method="post" action="{{ route('comments.store') }}">
+            {{ csrf_field() }}
+          <!--{!! Form::open(['method'=>'POST','action'=>'PostCommentsController@store']) !!}-->
           <div class="form-group row mb-0">
             <div class="col-md-8">
           <input type="hidden" name="post_id" value="{{$data->id}}">
-          <textarea rows="2" cols="80" name="comment_body"></textarea>
-              <button type="submit" class="btn btn-primary">Submit</button>
+          <textarea rows="2" cols="80" name="comment" id="comment" class="form-control{{ $errors->has('comment') ? ' is-invalid' : '' }}"></textarea>
+
+          @if ($errors->has('comment'))
+          <span class="invalid-feedback">
+            <strong>{{ $errors->first('comment') }}</strong>
+          </span>
+          @endif
+
             </div>
           </div>
-          {!! Form::close() !!}
+          <br>
+          <button type="submit" class="btn btn-primary">Submit</button>
+          <!--{!! Form::close() !!}-->
+        </form>
           <br><br>
 
           @if (count($comments) > 0)
@@ -44,22 +59,32 @@
           <div style="margin-left:20px;">{{$reply->author}}: {{$reply->created_at->diffForHumans()}}
             <br>
           {{$reply->body}}
-          </div>
+
 
           @endforeach
           @endif
 
 
-          {!! Form::open(['method'=>'POST','action'=>'CommentsRepliesController@store']) !!}
-
+          <!--{!! Form::open(['method'=>'POST','action'=>'CommentsRepliesController@store']) !!}-->
+          <form method="post" action="{{ route('replies.store') }}">
+            {{ csrf_field() }}
           <div class="form-group row mb-0">
             <div class="col-md-8">
               <input type="hidden" name="comment_id" value="{{$comment->id}}">
-              <textarea rows="1" cols="70" name="comment_body"></textarea>
-              <button type="submit" class="btn btn-primary">Reply</button>
+              <textarea rows="1" cols="70" name="reply" id="reply" class="form-control{{ $errors->has('reply') ? ' is-invalid' : '' }}"></textarea>
+
+              @if ($errors->has('reply'))
+              <span class="invalid-feedback">
+                <strong>{{ $errors->first('reply') }}</strong>
+              </span>
+              @endif
+
             </div>
+            <button type="submit" class="btn btn-primary">Reply</button>
           </div>
-          {!! Form::close() !!}
+          <!--{!! Form::close() !!}-->
+        </form>
+          </div>
           <br>
 
           @endforeach
