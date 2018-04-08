@@ -19,10 +19,14 @@ class CreatePostsTable extends Migration
       $table->text('body');
       $table->string('image')->nullable();
       $table->integer('user_id')->unsigned()->index();
+      $table->integer('category_id')->unsigned()->index();
       $table->timestamps();
 
-      $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
     });
+
+    Schema::table('posts', function($table) {
+       $table->foreign('user_id','category_id')->references('id','id')->on('users','categories')->onDelete('cascade','cascade');
+   });
   }
 
   /**

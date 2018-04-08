@@ -3,13 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Post;
-use App\Comment;
 use App\Category;
 
-use Illuminate\Support\Facades\Auth;
-
-class PostsController extends Controller
+class CatergoryController extends Controller
 {
   /**
   * Create a new controller instance.
@@ -28,19 +24,10 @@ class PostsController extends Controller
   */
   public function index()
   {
-    $posts = Post::with('user')->paginate();
-    return view('posts.index',compact('posts'));
-  }
-
-  /**
-  * Show the form for creating a new resource.
-  *
-  * @return \Illuminate\Http\Response
-  */
-  public function create()
-  {
+    // disply a view of all the blog current categories
     $categories = Category::all();
-    return view('posts.create',compact('categories'));
+    return view('categories.index')->withCategories($categories);
+    // create new category
   }
 
   /**
@@ -51,29 +38,15 @@ class PostsController extends Controller
   */
   public function store(Request $request)
   {
-    //Post::create($request->except('_token'););
-
+    // save a new category
     $this->validate($request, [
-      'title'=>'required|max:50',
-      'body'=>'required|max:65535',
-      'category'=>'required',
+      'name'=>'required|max:30'
     ]);
 
     $input = $request->except('_token');
-    if ($file = $request->file('image'))
-    {
-      $name = $file->getClientOriginalName();
-      $file->move(public_path('images'),$name);
-      $input['image'] = $name;
-
-    }
-
-    $input['user_id']=Auth::user()->id;
-    $input['category_id']=$request->get('category');
-    Post::create($input);
-    //$post = Auth::user()->posts()->save(new Post($request->except('_token')));
-    return redirect('/posts');
-    //return $request->all();
+    Category::create($input);
+    // redirect to index page
+    return redirect('/categories');
   }
 
   /**
@@ -84,9 +57,7 @@ class PostsController extends Controller
   */
   public function show($id)
   {
-    $data = Post::findOrFail($id);
-    $comments = $data->comments;
-    return view('posts.show',compact('data','comments'));
+    //
   }
 
   /**

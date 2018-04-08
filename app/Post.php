@@ -8,7 +8,7 @@ class Post extends Model
 {
   public $directory = "images/";
 
-  protected $fillable = ['title','body','image','user_id'];
+  protected $fillable = ['title','body','image','user_id','category_id'];
 
   public function user()
   {
@@ -25,5 +25,10 @@ class Post extends Model
 
   public function comments(){
     return $this->hasMany('App\Comment')->latest();
+  }
+
+  public function category()
+  {
+    return $this->belongsTo('App\Category');
   }
 }

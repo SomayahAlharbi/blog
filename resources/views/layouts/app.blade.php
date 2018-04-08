@@ -57,6 +57,12 @@
                 </a>
                 @endif
 
+                @if (!Request::is('categories'))
+                <a class="dropdown-item" href="{{ route('categories.index') }}">
+                  New Category
+                </a>
+                @endif
+
 
                 <a class="dropdown-item" href="{{ route('logout') }}"
                 onclick="event.preventDefault();

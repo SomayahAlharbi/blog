@@ -44,6 +44,8 @@ Route::resource('/comments', 'PostCommentsController');
 
 Route::resource('comments/replies', 'CommentsRepliesController');
 
+Route::resource('categories', 'CatergoryController', ['except'=>['create']]);
+
 Auth::routes();
 
 Route::group(['middleware'=>'web'], function(){

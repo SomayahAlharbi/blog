@@ -25,6 +25,28 @@
 
             </div>
           </div>
+
+          <div class="form-group row">
+            <label class="col-md-4 col-form-label text-md-right">Post Category</label>
+            <div class="col-md-6">
+              <select name="category" id="category" class="form-control{{ $errors->has('category') ? ' is-invalid' : '' }}">
+                <option value=""></option>
+
+                // list of all current categories
+                @foreach($categories as $category)
+                <option value="{{$category->id}}">{{$category->name}}</option>
+                @endforeach
+
+              </select>
+            @if ($errors->has('category'))
+            <span class="invalid-feedback">
+              <strong>{{ $errors->first('category') }}</strong>
+            </span>
+            @endif
+
+          </div>
+        </div>
+
             <div class="form-group row">
               <label class="col-md-4 col-form-label text-md-right">Post Content</label>
               <div class="col-md-6">
