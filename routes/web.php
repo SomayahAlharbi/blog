@@ -30,9 +30,7 @@ Route::get('/admin', function () {
 });
 
 Route::get('/show',function () {
-  //$posts = Post::all();
-  //return view('posts', ['posts' => $posts]);
-  $posts = Post::with('user')->paginate();
+  $posts = Post::with('user')->latest()->paginate(5);
   return view('posts.index',compact('posts'));
 })->name('show');
 

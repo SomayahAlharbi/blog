@@ -20,6 +20,10 @@
       <br><br>
       @endforeach
 
+      <div class="row justify-content-center">
+          {!! $posts->links(); !!}
+        </div>
+
     </div>
   </div>
 </div>
