@@ -25,6 +25,10 @@ Route::get('/aboutme', function () {
   return view('aboutme');
 })->name('aboutme');
 
+Route::get('/search', function () {
+  return view('search');
+})->name('search');
+
 Route::get('/admin', function () {
   return view('admin');
 });
@@ -36,6 +40,7 @@ Route::get('/show',function () {
 
 Route::get('/logout', '\App\Http\Controllers\Auth\LoginController@logout')->name('logout');
 
+Route::get('posts/search', 'PostsController@search')->name('posts.search');
 Route::resource('/posts', 'PostsController');
 
 Route::resource('/comments', 'PostCommentsController');

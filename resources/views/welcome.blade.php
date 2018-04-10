@@ -87,6 +87,7 @@
       <div class="links">
         <a href="{{ route('show') }}">Posts</a>
         <a href="{{ route('aboutme') }}">About me</a>
+        <a href="{{ route('search') }}">Search</a>
         <!--<a href="https://laracasts.com">About Me</a>
         <a href="https://laravel-news.com">News</a>
         <a href="https://forge.laravel.com">Forge</a>

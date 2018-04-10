@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use App\Post;
 use App\Comment;
 use App\Category;
@@ -30,6 +31,28 @@ class PostsController extends Controller
   {
     $posts = Post::with('user')->latest()->paginate(5);
     return view('posts.index',compact('posts'));
+  }
+
+  /**
+  * search the blog
+  *
+  * @param  \Illuminate\Http\Request  $request
+  * @return \Illuminate\Http\Response
+  */
+  public function search(Request $request)
+  {
+    $this->validate($request, [
+      'keyword'=>'required',
+    ]);
+
+    $search = $request->get('keyword');
+
+    $searchResults = Post::where('title', 'LIKE', '%'. $search.'%')
+    ->orWhere('body', 'LIKE', '%'.$search.'%')
+    ->paginate(2);
+
+    return view('search',compact('searchResults','search'));
+
   }
 
   /**
