@@ -39,8 +39,8 @@
           {{$result->body}}
 
           <br><br>
-          Created at: {{$result->created_at}}
-          Updated at: {{$result->updated_at}}
+          Created at: {{$result->created_at->diffForHumans()}}
+          Updated at: {{$result->updated_at->diffForHumans()}}
 
         </div>
       </div>
