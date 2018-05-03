@@ -52,10 +52,9 @@
           {{$comment->body}}
 
           @if (count($comment->replies) > 0)
-
-          @foreach ($comment->replies as $reply)
-          <div style="margin-left:20px;">{{$reply->author}}: {{$reply->created_at->diffForHumans()}}
-            <br>
+          <div style="margin-left:20px;">
+            @foreach ($comment->replies as $reply)
+            <div>{{$reply->author}}: {{$reply->created_at->diffForHumans()}}</div>
             {{$reply->body}}
 
 
@@ -81,12 +80,9 @@
               </div>
               <!--{!! Form::close() !!}-->
             </form>
-              <br>
-          </div>
-
-
+            <br>
           @endforeach
-
+</div>
           @else   <h3>No Comments</h3>
           @endif
 

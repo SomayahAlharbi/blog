@@ -33,6 +33,10 @@ Route::get('/admin', function () {
   return view('admin');
 });
 
+Route::get('/contactus', function () {
+  return view('contact');
+})->name('contactus');
+
 Route::get('/show',function () {
   $posts = Post::with('user')->latest()->paginate(5);
   return view('posts.index',compact('posts'));
@@ -48,6 +52,8 @@ Route::resource('/comments', 'PostCommentsController');
 Route::resource('comments/replies', 'CommentsRepliesController');
 
 Route::resource('categories', 'CatergoryController', ['except'=>['create']]);
+
+Route::resource('contact', 'ContactController')->only(['store']);
 
 Auth::routes();
 
